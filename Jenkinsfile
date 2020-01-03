@@ -1,12 +1,18 @@
-// Scripted Pipeline
-node('master') {
-    stage('Source') { // Get code
-        // get code from our Git repository
-        git credentialsId: 'e573c0a6-8ff5-4df0-9957-6d8150542dff', url: 'https://github.com/saianuragreddy/spring3-mvc-maven-xml-hello-world.git'
+// Declarative Pipeline
+pipeline {
+    agent {label 'master'}
+    stages {
+        stage('Source') { // Get code
+            steps {
+                // get code from our Git repository
+                git 'https://github.com/saianuragreddy/spring3-mvc-maven-xml-hello-world.git'
+            }
+        }
+        stage('Compile') { // Compile and do unit testing
+            steps {
+                // run Gradle to execute compile and unit testing
+                sh "maven package"
+            }
+        }
     }
-    stage('Compile') { // Compile and do unit testing
-       // run Gradle to execute compile and unit testing
-       sh "mvn compile"
-    }
-	cleanworkspace = true
 }
