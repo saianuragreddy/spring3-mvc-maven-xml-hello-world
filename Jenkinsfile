@@ -8,4 +8,5 @@ node('master') {
        // run Gradle to execute compile and unit testing
        sh "mvn compile"
     }
+	cleanworkspace = true
 }
